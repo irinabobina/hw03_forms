@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 from .forms import PostForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     latest = Post.objects.all()[:11]
