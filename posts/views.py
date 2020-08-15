@@ -27,4 +27,4 @@ def new_post(request):
             Post.save()
             return redirect('index')
     form = PostForm()
-    return render(request, 'new.html', {'PostForm': form})
+    return render(request, 'new.html', {'form': form})
