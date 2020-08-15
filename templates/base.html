@@ -13,8 +13,11 @@
 </head>
 
 <body>
-    {% include 'nav.html' %}
+    {% if user.is_authenticated %}
     {% include 'navpost.html' %}
+    {% else %}
+    {% include 'nav.html' %}
+    {% endif %}
     <main>
         <div class="container">
             <h1>{% block header %}Зарегистрироваться{% endblock %}</h1>
