@@ -22,8 +22,8 @@ def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.group = form.cleaned_data['group'] 
-            form.text = form.cleaned_data['text']
+            form.group = request.POST.get('group')
+            form.text = request.POST.get('text')
             form.save()
             return redirect('index')
     form = PostForm()
