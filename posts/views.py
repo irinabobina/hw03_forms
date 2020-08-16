@@ -26,7 +26,7 @@ def new_post(request):
             text = form.cleaned_data['text']
             created_post = Post.objects.create(text=text, author = request.user) 
             created_post.save()
-            return redirect('/index/')
+            return redirect('index')
         return render(request, 'index.html', {'form': form})
     form = PostForm()
     return render(request, 'new.html', {'form': form})
