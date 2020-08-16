@@ -22,9 +22,21 @@ def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.group = request.POST.get('group')
-            form.text = request.POST.get('text')
-            form.save()
+            Post.group = form.cleaned_data['group'] 
+            Post.text = form.cleaned_data['text']
+            Post.save()
             return redirect('index')
     form = PostForm()
     return render(request, 'new.html', {'form': form})
+
+#@login_required
+#def new_post(request):
+    #if request.method == 'POST':
+        #form = PostForm(request.POST)
+        #if form.is_valid():
+            #form.group = request.POST.get('group')
+            #form.text = request.POST.get('text')
+            #form.save()
+            #return redirect('index')
+    #form = PostForm()
+    #return render(request, 'new.html', {'form': form})
