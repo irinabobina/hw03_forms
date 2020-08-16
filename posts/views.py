@@ -22,10 +22,11 @@ def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            new_post = form.save()
-            new_post.author = request.user 
-            new_post.save()
+            text = form.cleaned_data['text']
+            created_post = Post.objects.create(text=text, author = request.user) 
+            created_post.save()
             return redirect('/index/')
+        return render(request, 'index.html', {'form': form})
     form = PostForm()
     return render(request, 'new.html', {'form': form})
 
