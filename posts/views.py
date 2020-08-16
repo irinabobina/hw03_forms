@@ -22,7 +22,7 @@ def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            new_ one = form.save()
+            new_one = form.save()
             new_one.group = form.cleaned_data['group'] 
             new_one.text = form.cleaned_data['text']
             form.save()
