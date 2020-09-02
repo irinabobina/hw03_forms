@@ -27,5 +27,6 @@ def new_post(request):
         if form.is_valid():
             form.instance.author = request.user
             form.save()
-        return redirect('index')
+            return redirect('index')
+        return render(request, 'index.html', {'form': form}) 
     return render(request, 'new.html', {'form': form})
