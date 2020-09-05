@@ -19,6 +19,7 @@ from django.urls import include, path
 urlpatterns = [
     #  регистрация и авторизация
     path("auth/", include("users.urls")),
+    path('about/', include('django.contrib.flatpages.urls')),
 
     #  если нужного шаблона для /auth не нашлось в файле users.urls — 
     #  ищем совпадения в файле django.contrib.auth.urls
