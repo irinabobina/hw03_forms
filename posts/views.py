@@ -8,15 +8,15 @@ from .forms import PostForm
 
 
 def index(request):
-    post_list = Post.objects.order_by('-pub_date').all()
-    paginator = Paginator(post_list, 10)  # показывать по 10 записей на странице.
+    latest = Post.objects.all()[:11]
+    paginator = Paginator(latest, 10)  # показывать по 10 записей на странице.
 
     page_number = request.GET.get('page')  # переменная в URL с номером запрошенной страницы
     page = paginator.get_page(page_number)  # получить записи с нужным смещением
     return render(
         request,
         'index.html',
-        {'page': page, 'paginator': paginator}
+        {'page': page, 'posts': latest, 'paginator': paginator}
        )
 
 def group_posts(request, slug):
