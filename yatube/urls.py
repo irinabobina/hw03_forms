@@ -31,3 +31,8 @@ urlpatterns = [
     #  обработчик для главной страницы ищем в urls.py приложения posts
     path("", include("posts.urls")),
 ]
+
+urlpatterns += [
+        path('mi-ochen-horoshie/', views.flatpage, {'url': '/about-us/'}, name='about'),
+        path('terms/', views.flatpage, {'url': '/terms/'}, name='terms'),
+]
