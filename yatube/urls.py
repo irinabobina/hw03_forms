@@ -34,6 +34,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-        path('about-author/', views.flatpage, {'url': '/about-autor/'}, name='about'),
+        path('about-author/', views.flatpage, {'url': '/about-author/'}, name='about'),
         path('about-spec/', views.flatpage, {'url': '/about-spec/'}, name='terms'),
 ]
