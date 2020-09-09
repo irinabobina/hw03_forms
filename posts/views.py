@@ -40,7 +40,6 @@ def new_post(request):
         return render(request, 'index.html', {'form': form}) 
     return render(request, 'new.html', {'form': form})
 
-@login_required
 def profile(request, username):
     profile = get_object_or_404(get_user_model(), username=username)
     post_list = profile.posts.order_by('-pub_date').all()
@@ -56,14 +55,33 @@ def profile(request, username):
     return render(request, 'profile.html', context)
  
  
-#def post_view(request, username, post_id):
-        # тут тело функции
-        #return render(request, 'post.html', {})
+def post_view(request, username, post_id):
+        author = get_object_or_404(get_user_model(), username=username)
+        count_post = Post.objects.order_by('-pub_date').filter(author=author).all().count()
+        view_post = get_object_or_404(post, id=post_id)
+        context = {
+            'profile': author,
+            'post': view_post,
+            'count_post': count_post
+        }
+        return render(request, 'post.html', context)
 
+@login_required
+def post_edit(request, username, post_id):
+    context = {
+        'page_name': 'Редактирование поста',
+        'button_name': 'Сохранить',
+    }
 
-#def post_edit(request, username, post_id):
-        # тут тело функции. Не забудьте проверить, 
-        # что текущий пользователь — это автор записи.
-        # В качестве шаблона страницы редактирования укажите шаблон создания новой записи
-        # который вы создали раньше (вы могли назвать шаблон иначе)
-        #return render(request, 'post_new.html', {})
+    if request.user.username == username:
+        edit_post = get_object_or_404(post, id=post_id)
+        form = PostForm(instance=edit_post)
+        if request.method == "POST":
+            if form.is_valid():
+                form = PostForm(request.POST, instance=edit_post)
+                form.save()
+                return redirect('index')
+            context['form'] = form
+            return render(request, 'new.html', context)
+        context['form'] = form
+        return render(request, 'new.html', context)
