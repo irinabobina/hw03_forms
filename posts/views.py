@@ -74,7 +74,7 @@ def post_edit(request, username, post_id):
     }
 
     if request.user.username == username:
-        edit_post = get_object_or_404(post, id=post_id)
+        edit_post = get_object_or_404(Post, id=post_id)
         form = PostForm(instance=edit_post)
         if request.method == "POST":
             if form.is_valid():
